@@ -32,6 +32,7 @@
           <MyButton label="Save" @click.prevent="savePost" is-rounded/>
           <MyButton label="Close" @click.prevent="emit('closeModal', false)" is-rounded/>
         </div>
+        {{form}}
 
       </div>
     </div>
@@ -39,7 +40,7 @@
 </template>
 
 <script setup lang="ts">
-import type { AddPostForm } from "@/src/interfaces";
+import type { AddPostForm, Post } from "@/src/interfaces";
 import { useMainStore } from "@/store/useMainStore";
 import MyButton from "~/src/components/UI/MyButton.vue";
 
@@ -50,7 +51,7 @@ const emit = defineEmits<{
 }>()
 
 let errorMessage = ref('')
-const form = ref<AddPostForm>({ title: '', body: '', id: 0, userId: 1 })
+const form = ref<AddPostForm>({ title: '', body: '', id: 1, userId: 1 })
 
 const formValidate = computed( () => {
   const { title, body } = form.value;
@@ -62,24 +63,41 @@ const formValidate = computed( () => {
     return true
   }
 })
+
+async function addNewPostRequest() {
+  try {
+    const response = await fetch('https://jsonplaceholder.typicode.com/posts',{
+      method: 'POST',
+      body: JSON.stringify(form.value),
+      headers: { 'Content-Type' : 'application/json' }
+    })
+
+    if (response.ok) {
+      const result = await response.json()
+      store.updatePosts(result);
+      emit('closeModal', false)
+    }
+
+  } catch (error) {
+    console.error(`Error in POST request: ${error}`)
+  }
+}
 function savePost() {
+
   if (!formValidate.value) {
     return
-  } {
-    const lastPost = [...store.posts].sort((a, b) => a.id - b.id).at(-1);
-
-    form.value.id = lastPost.id + 1;
-
-    console.log(lastPost)
-    store.updatePosts(form.value)
-    emit('closeModal', false)
-    console.log(form.value)
   }
 
+  if (store.posts.length) {
+    const sortedPosts: Array<Post> = [...store.posts].sort((a, b) => a.id - b.id);
+    const lastPost: Post = sortedPosts.at(-1) as Post;
+    form.value.id = lastPost.id + 1;
+  }
 
+  addNewPostRequest()
 }
 
-watch(form.value, (newVal, oldVal) => {
+watch(form.value, (newVal) => {
   if (newVal.title !== '' && newVal.body !== '') {
     errorMessage.value = ''
   }

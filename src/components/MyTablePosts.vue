@@ -3,7 +3,7 @@
     <thead class="bg-amber-50">
     <tr class="border-b-2 ">
       <th v-for="header in tableHeaders" :key="header" style="padding: 5px 10px">
-        <div class="flex items-center justify-center gap-2" @click.prevent="sortPostsById">
+        <div class="flex items-center gap-2" @click.prevent="sortPostsById">
           <span>{{ header }}</span>
           <img v-if="header === 'ID'" src="@/src/assets/img/arrow-down-24.png" alt="arrow dowm icon" class="w-4 cursor-pointer" :class="{ 'rotate-180' : isAscend}" >
         </div>
