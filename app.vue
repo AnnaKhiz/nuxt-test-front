@@ -1,7 +1,7 @@
 <template>
-  <MainComponent />
+  <PostsList />
 </template>
 
 <script setup>
-import MainComponent from "~/src/components/MainComponent.vue"
+import PostsList from "~/src/pages/PostsList.vue"
 </script>
