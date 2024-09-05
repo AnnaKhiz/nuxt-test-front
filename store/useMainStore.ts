@@ -1,8 +1,5 @@
 import { defineStore } from 'pinia';
 import type { MainStore, Post } from "~/src/interfaces";
-
-
-
 export const useMainStore = defineStore('main',{
   state: () : MainStore => ({
     limit: 10,
@@ -12,7 +9,7 @@ export const useMainStore = defineStore('main',{
   }),
   actions: {
     setNewCheckedPage(payload: number): void {
-      this.page = payload
+      this.page = payload;
     },
     changeLoadingStatus(payload: boolean): void {
       this.loading = payload;
@@ -21,17 +18,17 @@ export const useMainStore = defineStore('main',{
       this.posts.push(payload);
     },
     async uploadAllPosts(): Promise<void> {
-      this.changeLoadingStatus(true)
+      this.changeLoadingStatus(true);
 
       try {
         const result: Response = await fetch(`https://jsonplaceholder.typicode.com/posts`);
         const data: Array<Post> = await result.json();
         this.posts = data;
-        this.changeLoadingStatus(false)
+        this.changeLoadingStatus(false);
 
       } catch (error) {
         console.error('Error getting posts list: ', error)
       }
-    }
+    },
   }
 });

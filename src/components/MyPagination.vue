@@ -13,9 +13,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import { useMainStore } from "~/store/useMainStore";
-import {storeToRefs} from "pinia";
+import { storeToRefs } from "pinia";
 
 const store = useMainStore();
 const { page } = storeToRefs(store);
@@ -28,17 +27,12 @@ function changePage(item: number): void {
   store.setNewCheckedPage(item);
 
   timeoutId = setTimeout((): void => {
-    store.changeLoadingStatus(false)
+    store.changeLoadingStatus(false);
   }, 200);
 }
 
 onUnmounted(() => {
-  console.log(timeoutId)
-  !store.loading ? clearTimeout(timeoutId) : false
+  !store.loading ? clearTimeout(timeoutId) : false;
 })
 
 </script>
-
-<style scoped>
-
-</style>

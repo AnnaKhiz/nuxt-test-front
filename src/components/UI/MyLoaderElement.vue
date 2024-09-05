@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import { useMainStore } from "~/store/useMainStore";
-import { storeToRefs } from 'pinia'
+import { storeToRefs } from 'pinia';
 
 const store = useMainStore();
 const  { loading } = storeToRefs(store);
@@ -14,8 +14,12 @@ const  { loading } = storeToRefs(store);
 
 <style scoped>
 @keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .spinner {

@@ -12,22 +12,19 @@
       <div v-else >
         <h2>No posts available yet. You can create one right now.</h2>
       </div>
-
     </div>
-
   </div>
-
 </template>
 
 <script setup lang="ts">
-import MyPagination from "~/src/components/MyPagination.vue";
 import { useMainStore } from "~/store/useMainStore";
 import { storeToRefs } from 'pinia';
+import MyPagination from "~/src/components/MyPagination.vue";
 import MyLoaderElement from "~/src/components/UI/MyLoaderElement.vue";
 import MyTablePosts from "~/src/components/MyTablePosts.vue";
 
 const store = useMainStore();
-const  { loading, posts, page } = storeToRefs(store);
+const  { loading, posts } = storeToRefs(store);
 
 onMounted(() => {
   store.uploadAllPosts();

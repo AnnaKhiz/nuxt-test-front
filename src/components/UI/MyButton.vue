@@ -10,9 +10,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ButtonProps } from "@/src/interfaces"
+import type { ButtonProps } from "@/src/interfaces";
 
-const props = defineProps<ButtonProps>()
-
+const props = defineProps<ButtonProps>();
 </script>
 
