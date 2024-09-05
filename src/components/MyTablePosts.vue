@@ -1,8 +1,8 @@
 <template>
-  <table  class="table-auto border-collapse mb-3 " >
+  <table class=" border-collapse mb-3" style="width: 100%">
     <thead class="bg-amber-50">
     <tr class="border-b-2 ">
-      <th v-for="header in tableHeaders" :key="header" class="py-2">
+      <th v-for="header in tableHeaders" :key="header" style="padding: 5px 10px">
         <div class="flex items-center justify-center gap-2" @click.prevent="sortPostsById">
           <span>{{ header }}</span>
           <img v-if="header === 'ID'" src="@/src/assets/img/arrow-down-24.png" alt="arrow dowm icon" class="w-4 cursor-pointer" :class="{ 'rotate-180' : isAscend}" >
@@ -12,7 +12,7 @@
     </thead>
     <tbody>
     <tr v-for="post in postsPerPage" :key="post.id" class="border-b hover:bg-blue-50 transition duration-500 ease-in-out">
-      <td class="py-2 px-8">{{ post.id }}</td>
+      <td  style="padding: 5px 10px">{{ post.id }}</td>
       <td class="py-2 px-4">{{ post.title }}</td>
       <td class="py-2">{{ post.body }}</td>
     </tr>

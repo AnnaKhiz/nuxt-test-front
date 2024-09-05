@@ -1,5 +1,5 @@
 <template>
-  <div class="h-svh">
+  <div class="h-svh font-mono">
     <MyLoaderElement v-if="loading" />
 
     <div v-else class="container mx-auto px-4 py-10 flex flex-col" style="height: 90%">

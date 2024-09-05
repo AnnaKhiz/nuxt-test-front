@@ -17,8 +17,8 @@ export const useMainStore = defineStore('main',{
     changeLoadingStatus(payload: boolean): void {
       this.loading = payload;
     },
-    updatePosts(payload: Array<Post>): void {
-      this.posts = payload;
+    updatePosts(payload: Post): void {
+      this.posts.push(payload);
     },
     async uploadAllPosts(): Promise<void> {
       this.changeLoadingStatus(true)
