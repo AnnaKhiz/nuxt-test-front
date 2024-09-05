@@ -1,5 +1,4 @@
 export type { Post } from "./Post";
-export type { PaginationProps } from "./PaginationProps"
-
+export type { MainStore } from "./MainStore";
 
 

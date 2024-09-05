@@ -2,7 +2,7 @@
   <div>
     <button
       class="bg-blue-200 w-8 h-8 mb-4 mr-2"
-      :class="{ 'bg-blue-400' : page === item }"
+      :class="{ 'bg-blue-400 text-amber-50' : page === item }"
       v-for="item in pagesQuantity"
       :key="item"
       @click="changePage(item)"
@@ -14,25 +14,28 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import type { PaginationProps } from '@/src/interfaces';
+import { useMainStore } from "~/store/useMainStore";
+import {storeToRefs} from "pinia";
 
-const props = defineProps<PaginationProps>();
+const store = useMainStore();
+const { page } = storeToRefs(store);
+let timeoutId: ReturnType<typeof setTimeout>;
 
-const emit = defineEmits<{
-    (event: 'updateLoading', payload: boolean): void;
-    (event: 'updatePageValue', payload: number): void;
-  }>()
+const pagesQuantity = computed(() => (Math.ceil(store.posts.length / store.limit )));
 
-const pagesQuantity = computed(() => (Math.ceil(props.posts.length / props.limit)));
+function changePage(item: number): void {
+  store.changeLoadingStatus(true);
+  store.setNewCheckedPage(item);
 
-function changePage(item: number): number {
-  emit('updateLoading', true);
-  emit('updatePageValue', item);
-  setTimeout(() => {
-    emit('updateLoading', false);
-  }, 200)
-  return props.page;
+  timeoutId = setTimeout((): void => {
+    store.changeLoadingStatus(false)
+  }, 200);
 }
+
+onUnmounted(() => {
+  console.log(timeoutId)
+  !store.loading ? clearTimeout(timeoutId) : false
+})
 
 </script>
 
